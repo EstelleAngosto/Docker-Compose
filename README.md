@@ -66,4 +66,4 @@ Voici le contenu de compose.yml :
       build: Test
 
 Peu de choses ont été faites car je n'ai pas compris comment faire passer des informations entre deux container,
-ce qui est primordial pour le projet.
+ce qui est primordial pour le projet. 
