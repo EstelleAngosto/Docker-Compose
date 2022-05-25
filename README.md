@@ -15,13 +15,13 @@ Pour ma part, je suis restée sur l'estimation de prix de maison en Califorie.
 # Installation de Docker
 
 Pour installer Docker, nous avons suivi la succession de ligne de commande suivante :
-`sudo apt update`
-`sudo apt upgrade`
-`sudo apt-get install  curl apt-transport-https ca-certificates software-properties-common`
-`curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -`
-`sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"`
-`sudo apt update`
-`sudo apt install docker-ce`
+  sudo apt update
+  sudo apt upgrade
+  sudo apt-get install  curl apt-transport-https ca-certificates software-properties-common
+  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  sudo apt update
+  sudo apt install docker-ce
 
 # Structure du projet
 
@@ -34,3 +34,36 @@ Concernant notre projet, nous avons créé un répertoire **DockerCompose_ML** d
 marcher notre Docker Compose et de trois dossiers, Base, Train et Test, pour représenter chaque partie du projet.
 
 Dans chacun de ces répertoires, on trouve un script python, un fichier requirement.txt et un Dockerfile.
+
+# Dockerfile du projet
+
+Pour les trois containers importants dans notre projet, nous avons utilisé un Dockerfile afin de les créer automatiquement.
+Les trois fichiers suivent le format suivant :
+
+  FROM python:3.7
+  COPY . /base
+  WORKDIR /base
+  RUN pip3 install -r requirement.txt
+  ENTRYPOINT ["python3"]
+  CMD ["./Crea_base.py"]
+
+Bien évidemment, ce code est adapté pour chaque répertoire.
+
+# Utilisation de Docker Compose
+
+Voici le contenu de compose.yml :
+
+  version: '1'
+
+  services:
+    base:
+      build: Base
+
+    train:
+      build: Train
+
+    test:
+      build: Test
+
+Peu de choses ont été faites car je n'ai pas compris comment faire passer des informations entre deux container,
+ce qui est primordial pour le projet.
